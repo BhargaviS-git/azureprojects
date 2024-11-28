@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "location": {
+        "value": "eastus2"
+      },
+      "vnetName": {
+        "value": "prod-vnet"
+      },
+      "addressPrefixes": {
+        "value": ["10.3.0.0/16"]
+      },
+      "tags": {
+        "value": {
+          "environment": "production"
+        }
+      },
+      "nsgName": {
+        "value": "prod-nsg"
+      },
+      "securityRules": {
+        "value": [
+          {
+            "name": "AllowAppTraffic",
+            "properties": {
+              "priority": 100,
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "8080",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "direction": "Inbound"
+            }
+          }
+        ]
+      },
+      "subnetName": {
+        "value": "prod-subnet"
+      },
+      "subnetAddressPrefix": {
+        "value": "10.3.1.0/24"
+      }
+    }
+  }
+  

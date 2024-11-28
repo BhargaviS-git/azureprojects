@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "location": {
+        "value": "eastus"
+      },
+      "vnetName": {
+        "value": "dev-vnet"
+      },
+      "addressPrefixes": {
+        "value": ["10.1.0.0/16"]
+      },
+      "tags": {
+        "value": {
+          "environment": "development"
+        }
+      },
+      "nsgName": {
+        "value": "dev-nsg"
+      },
+      "securityRules": {
+        "value": [
+          {
+            "name": "AllowHTTP",
+            "properties": {
+              "priority": 100,
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "80",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "direction": "Inbound"
+            }
+          }
+        ]
+      },
+      "subnetName": {
+        "value": "dev-subnet"
+      },
+      "subnetAddressPrefix": {
+        "value": "10.1.1.0/24"
+      }
+    }
+  }
+  

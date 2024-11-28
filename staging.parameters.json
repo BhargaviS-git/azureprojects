@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "location": {
+        "value": "westus"
+      },
+      "vnetName": {
+        "value": "staging-vnet"
+      },
+      "addressPrefixes": {
+        "value": ["10.2.0.0/16"]
+      },
+      "tags": {
+        "value": {
+          "environment": "staging"
+        }
+      },
+      "nsgName": {
+        "value": "staging-nsg"
+      },
+      "securityRules": {
+        "value": [
+          {
+            "name": "AllowHTTPS",
+            "properties": {
+              "priority": 100,
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "direction": "Inbound"
+            }
+          }
+        ]
+      },
+      "subnetName": {
+        "value": "staging-subnet"
+      },
+      "subnetAddressPrefix": {
+        "value": "10.2.1.0/24"
+      }
+    }
+  }
+  
