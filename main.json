@@ -1,0 +1,85 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.31.92.45157",
+      "templateHash": "9152879548278311391"
+    }
+  },
+  "parameters": {
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "vmfleetRG",
+      "metadata": {
+        "description": "The name of the resource group to deploy resources into"
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus",
+      "metadata": {
+        "description": "The location for all resources"
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_B2s",
+      "metadata": {
+        "description": "The VM size to use"
+      }
+    },
+    "vmBaseName": {
+      "type": "string",
+      "defaultValue": "vmcommander",
+      "metadata": {
+        "description": "The base name for the VMs"
+      }
+    },
+    "vmCount": {
+      "type": "int",
+      "defaultValue": 3,
+      "metadata": {
+        "description": "The number of VMs to create"
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "The admin password for the Virtual Machines"
+      }
+    },
+    "subnetId": {
+      "type": "string",
+      "metadata": {
+        "description": "The subnet ID to associate with the VM NICs"
+      }
+    }
+  },
+  "variables": {
+    "$fxv#0": ""
+  },
+  "resources": [
+    {
+      "copy": {
+        "name": "vms",
+        "count": "[length(range(0, parameters('vmCount')))]"
+      },
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2021-04-01",
+      "name": "[format('vm-{0}', range(0, parameters('vmCount'))[copyIndex()])]",
+      "properties": {
+        "mode": "Incremental",
+        "template": "[variables('$fxv#0')]",
+        "parameters": {
+          "vmName": "[format('{0}-{1}', parameters('vmBaseName'), range(0, parameters('vmCount'))[copyIndex()])]",
+          "vmSize": "[parameters('vmSize')]",
+          "location": "[parameters('location')]",
+          "adminPassword": "[parameters('adminPassword')]",
+          "subnetId": "[parameters('subnetId')]"
+        }
+      }
+    }
+  ]
+}
